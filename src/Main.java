@@ -1,13 +1,20 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import entities.Department;
+import entities.HourContract;
+import entities.Worker;
+import entities_enum.WorkLevel;
 import util.CurrencyConverter;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		//ex1();
 		//ex2();
 		//ex3();
@@ -15,7 +22,63 @@ public class Main {
 		//ex5();
 		//ex6();
 		//ex7();
-		ex8();
+		ex9();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void ex9() throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		Locale.setDefault(Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("MM/yyyy");
+		
+		String department, name;
+		String workerLevel;
+		Double baseSalary;
+		Integer contracts;
+		
+		System.out.println("Enter Department's name: ");
+		department = sc.next();
+		
+		System.out.println("Enter worker data:");
+		System.out.print("Name: ");
+		name = sc.next();
+		System.out.print("\nLevel: ");
+		workerLevel = sc.next();
+		System.out.print("\nBase Salary: ");
+		baseSalary = sc.nextDouble();
+		System.out.print("\nHow many contracts to this worker? ");
+		contracts = sc.nextInt();
+		
+		
+		Worker worker = new Worker(name, WorkLevel.valueOf(workerLevel), baseSalary, new Department(department));
+		
+		for(int i = 1; i <= contracts; i++) {
+			System.out.printf("Enter contract #%d data:\n", i);
+			String date;
+			Double valuePerHour;
+			Integer duration;
+			
+			System.out.print("Date (DD/MM/YYYY): ");
+			date = sc.next();
+			System.out.print("\nValue per Hour: ");
+			valuePerHour =sc.nextDouble();
+			System.out.print("\nDuration (Hours): ");
+			duration =sc.nextInt();
+			HourContract contract = new HourContract(sdf.parse(date), valuePerHour, duration);
+			worker.addContract(contract);		
+			
+		}
+		System.out.print("\nEnter month and year to calculate income (MM/YYYY): ");
+		String enterDate = sc.next();
+
+		int month = Integer.parseInt(enterDate.substring(0,2));
+		int year = Integer.parseInt(enterDate.substring(3));
+		
+		System.out.println("Name: "+worker.getName()+"\nDepartment: "+worker.getDepartment().getName()+"\nIncome for "+enterDate+": "+ String.format("%.2f", worker.income(year, month)) );
+		
+		
+		sc.close();
 	}
 	
 	public static void ex8() {
@@ -154,7 +217,7 @@ public class Main {
 		
 		
 		System.out.println("How many rooms will be rented?");
-		
+		 
 		int resp = sc.nextInt();
 		
 		Aluguel[] alugueis = new Aluguel[resp];
