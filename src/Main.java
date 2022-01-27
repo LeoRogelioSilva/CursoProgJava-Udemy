@@ -22,7 +22,8 @@ public class Main {
 		//ex5();
 		//ex6();
 		//ex7();
-		ex9();
+		//ex9();
+		main(null);
 	}
 	
 	@SuppressWarnings("deprecation")
