@@ -23,7 +23,12 @@ public class Main {
 		//ex6();
 		//ex7();
 		//ex9();
+		ex10();
 		main(null);
+	}
+	
+	public static void ex10() {
+		
 	}
 	
 	@SuppressWarnings("deprecation")
