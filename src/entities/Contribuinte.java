@@ -3,7 +3,7 @@ package entities;
 public abstract class Contribuinte {
 	protected String name;
 	protected Double anualIncome;
-	private Double taxes;
+	protected Double taxes;
 	
 	
 
@@ -39,9 +39,7 @@ public abstract class Contribuinte {
 		this.anualIncome = anualIncome;
 	}
 	
-	public Double getTaxes() {
-		return taxes;
-	}
+	public abstract Double getTaxes();
 
 
 	public void setTaxes(Double taxes) {
@@ -49,5 +47,4 @@ public abstract class Contribuinte {
 	}
 
 
-	public abstract Double calcTaxes(Double anualIncome);
 }

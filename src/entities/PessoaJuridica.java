@@ -17,13 +17,12 @@ public class PessoaJuridica extends Contribuinte{
 	public void setNumerOfEmployees(Double numerOfEmployees) {
 		this.numerOfEmployees = numerOfEmployees;
 	}
-
+	
 	@Override
-	public Double calcTaxes(Double anualIncome) {
-		Double taxes;
-		
-		taxes = this.numerOfEmployees>10?this.anualIncome*0.16:this.anualIncome*0.14;
-		
+	public Double getTaxes() {
+		this.taxes = this.numerOfEmployees>10?this.anualIncome*0.14:this.anualIncome*0.16;
+		setTaxes(taxes);
 		return taxes;
 	}
+	
 }

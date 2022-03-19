@@ -1,13 +1,16 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+
+import entities.Contribuinte;
 import entities.Department;
 import entities.HourContract;
+import entities.PessoaFisica;
+import entities.PessoaJuridica;
 import entities.Worker;
 import entities_enum.WorkLevel;
 import util.CurrencyConverter;
@@ -28,6 +31,65 @@ public class Main {
 	}
 	
 	public static void ex10() {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		int numOfTP;
+		System.out.println("Enter the number of tax payers: ");
+		numOfTP = sc.nextInt();
+		List<Contribuinte> contribuintes = new ArrayList<Contribuinte>();
+		
+		for(int i = 1; i <= numOfTP; i++) {
+			String iOrC;
+			System.out.printf("Tax payer #%d data:\n", i);
+			System.out.println("Individual or company (i/c)? ");
+			iOrC = sc.next();
+			if(iOrC.equals("i")) {
+				String name;
+				Double anualIncome, healthExpenditures;
+				
+				System.out.println("Name: ");
+				name = sc.next();
+				System.out.println("Anual Income: ");
+				anualIncome = sc.nextDouble();
+				System.out.println("Health expenditures");
+				healthExpenditures = sc.nextDouble();
+				
+				PessoaFisica pf = new PessoaFisica(name, anualIncome, healthExpenditures);
+				pf.getTaxes();
+				contribuintes.add(pf);
+				
+			}
+			else if(iOrC.equals("c")) {
+				String name;
+				Double anualIncome, numberOfEmployees;
+				
+				System.out.println("Name: ");
+				name = sc.next();
+				System.out.println("Anual Income: ");
+				anualIncome = sc.nextDouble();
+				System.out.println("Number of Employees: ");
+				numberOfEmployees = sc.nextDouble();
+				
+				PessoaJuridica pj = new PessoaJuridica(name, anualIncome, numberOfEmployees);
+				pj.getTaxes();
+				contribuintes.add(pj);
+				
+			}
+			else {
+				System.out.println("Invalid input");
+			}
+			
+		}
+		
+		System.out.println("TAXES PAID:");
+		Double totalTaxes=0.0;
+		for(Contribuinte c : contribuintes) {
+			System.out.printf("%s: $ %.2f\n", c.getName(), c.getTaxes());
+			totalTaxes += c.getTaxes();
+		}
+		System.out.printf("TOTAL TAXES: $ %.2f\n", totalTaxes);
+		
 		
 	}
 	
